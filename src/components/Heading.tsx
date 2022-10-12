@@ -2,25 +2,25 @@ import { ReactNode } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { clsx } from 'clsx';
 
-export interface TextProps {
+export interface HeadingProps {
   size?: 'sm' | 'md' | 'lg';
   children: ReactNode;
   asChild?: boolean;
 }
 
-export const Text: React.FC<TextProps> = ({
+export const Heading: React.FC<HeadingProps> = ({
   size = 'md',
   children,
   asChild,
 }) => {
-  const Component = asChild ? Slot : 'span';
+  const Component = asChild ? Slot : 'h2';
 
   return (
     <Component
-      className={clsx('text-gray-100 font-sans', {
-        'text-xs': size === 'sm',
-        'text-sm': size === 'md',
-        'text-md': size === 'lg',
+      className={clsx('text-gray-100 font-bold font-sans', {
+        'text-lg': size === 'sm',
+        'text-xl': size === 'md',
+        'text-2xl': size === 'lg',
       })}
     >
       {children}
