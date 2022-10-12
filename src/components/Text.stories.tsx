@@ -8,6 +8,14 @@ export default {
     children: 'Lorem ipsum.',
     size: 'md',
   },
+  argTypes: {
+    size: {
+      options: ['sm', 'md', 'lg'],
+      control: {
+        type: 'inline-radio',
+      },
+    },
+  },
 } as Meta<TextProps>;
 
 export const Default: StoryObj<TextProps> = {};
@@ -28,5 +36,12 @@ export const CustomText: StoryObj<TextProps> = {
   args: {
     asChild: true,
     children: <p>Custom text with another html tag</p>,
+  },
+  argTypes: {
+    children: {
+      table: {
+        disable: true,
+      },
+    },
   },
 };
