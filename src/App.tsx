@@ -1,5 +1,7 @@
 import './styles/global.css';
 
+import { SignIn } from './pages/SignIn';
+
 export function App() {
-  return <h1>Lab DS</h1>;
+  return <SignIn />;
 }
