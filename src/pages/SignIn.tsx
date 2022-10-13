@@ -13,7 +13,6 @@ export const SignIn: React.FC = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-
     setIsUserSigned(true);
   };
 
@@ -48,6 +47,7 @@ export const SignIn: React.FC = () => {
               type="email"
               id="email"
               placeholder="Digite seu e-mail"
+              data-testid="email"
             />
           </TextInput.Root>
         </label>
@@ -63,6 +63,7 @@ export const SignIn: React.FC = () => {
               type="password"
               id="password"
               placeholder="******"
+              data-testid="password"
             />
           </TextInput.Root>
         </label>
@@ -74,7 +75,11 @@ export const SignIn: React.FC = () => {
           </Text>
         </label>
 
-        <Button type="submit" className="mt-4">
+        <Button
+          type="submit"
+          className="mt-4"
+          data-testid="sign-in-button"
+        >
           Entrar na plataforma
         </Button>
       </form>
