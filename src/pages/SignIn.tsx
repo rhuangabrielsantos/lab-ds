@@ -1,5 +1,6 @@
 import { Envelope, Lock } from 'phosphor-react';
 import { FormEvent, useState } from 'react';
+import axios from 'axios';
 
 import { Button } from '../components/Button';
 import { Checkbox } from '../components/Checkbox';
@@ -8,11 +9,28 @@ import { Text } from '../components/Text';
 import { TextInput } from '../components/TextInput';
 import { Logo } from '../icons/Logo';
 
+interface SessionsResponse {
+  data: { message: string };
+}
+
 export const SignIn: React.FC = () => {
   const [isUserSigned, setIsUserSigned] = useState(false);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [response, setResponse] = useState<string>('');
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+
+    const apiResponse: SessionsResponse = await axios.post(
+      '/sessions',
+      {
+        email,
+        password,
+      }
+    );
+
+    setResponse(apiResponse.data.message);
     setIsUserSigned(true);
   };
 
@@ -34,7 +52,7 @@ export const SignIn: React.FC = () => {
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 items-stretch w-full max-w-sm mt-10"
       >
-        {isUserSigned && <Text>Login realizado!</Text>}
+        {isUserSigned && <Text>{response}</Text>}
 
         <label htmlFor="email" className="flex flex-col gap-3">
           <Text className="font-semibold">Endereço de e-mail</Text>
@@ -48,6 +66,8 @@ export const SignIn: React.FC = () => {
               id="email"
               placeholder="Digite seu e-mail"
               data-testid="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
           </TextInput.Root>
         </label>
@@ -64,6 +84,8 @@ export const SignIn: React.FC = () => {
               id="password"
               placeholder="******"
               data-testid="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
             />
           </TextInput.Root>
         </label>
